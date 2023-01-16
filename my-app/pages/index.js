@@ -11,8 +11,13 @@ export default function Home() {
 	const [address, setAddress] = useState("");
 
 	const setENSOrAddress = async (address, web3Provider) => {
-		
-	}
+		const _ens = await web3Provider.lookupAddress(address);
+		if(_ens) {
+			setENS(_ens);
+		} else {
+			setAddress(address);
+		}
+	};
 
 	const getProviderOrSigner = async () => {
 		const provider = await web3ModalRef.current.connect();
@@ -66,28 +71,29 @@ export default function Home() {
 
 	return (
 		<div>
-			<Head>
-				<title>Nick's ENS Dapp</title>
-				<meta name="description" content="Nick-ENS-Dapp" />
-				<link rel="icon" href="/favicon.ico" />
-			</Head>
-			<div className={styles.main}>
-				<div>
-					<h1 className={styles.title}>
-						Welcome to My Web3site{ens ? ens : address}!
-					</h1>
-					<div className={styles.description}>
-						It is my first simple ENS site for learn web3.
-					</div>
-					{renderButton()}
-					<div>
-						<img className={styles.image} src="./rabbit-chinese-2023.png" />
-					</div>
-				</div>
-			</div>
-			<footer className={styles.footer}>
-				Made with &#10084; by Nick's
-			</footer>
-		</div>
+      <Head>
+        <title>ENS Dapp</title>
+        <meta name="description" content="ENS-Dapp" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <div className={styles.main}>
+        <div>
+          <h1 className={styles.title}>
+            Welcome to LearnWeb3 Punks, {ens ? ens : address}!
+          </h1>
+          <div className={styles.description}>
+            Its an NFT collection for LearnWeb3 Punks.
+          </div>
+          {renderButton()}
+        </div>
+        <div>
+          <img className={styles.image} src="./rabbit-chinese-2023.png" />
+        </div>
+      </div>
+
+      <footer className={styles.footer}>
+        Made with &#10084; by LearnWeb3 Punks
+      </footer>
+    </div>
 	)
 }
